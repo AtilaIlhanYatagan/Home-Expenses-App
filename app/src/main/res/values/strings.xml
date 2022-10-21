@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Home</string>
+    <string name="amount">Tutar</string>
+    <string name="tutar">Tutar</string>
+
+
+    <string-array name="receiptTypes">
+
+        <item>Market</item>
+        <item>Kira</item>
+        <item>Fatura</item>
+        <item>Diğer</item>
+
+    </string-array>
+
+</resources>
