@@ -41,5 +41,8 @@ interface Dao {
     @Query("SELECT COUNT(*) FROM PokemonDetail WHERE name = :name")
     suspend fun isFavorite(name: String): Int
 */
+    //To sort the receipt list (https://medium.com/androiddevelopers/room-time-2b4cf9672b98)
+    @Query("SELECT * FROM Receipt ORDER BY datetime(Receipt.date)")
+    suspend fun getOldUsers(): List<Receipt>
 
 }

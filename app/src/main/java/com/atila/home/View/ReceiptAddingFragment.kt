@@ -12,6 +12,9 @@ import com.atila.home.Model.Receipt
 import com.atila.home.R
 import com.atila.home.ViewModel.HomePaymentViewModel
 import com.atila.home.databinding.FragmentReceiptAddingBinding
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 
 
 class ReceiptAddingFragment : Fragment() {
@@ -21,11 +24,6 @@ class ReceiptAddingFragment : Fragment() {
 
     private lateinit var viewModel: HomePaymentViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +84,9 @@ class ReceiptAddingFragment : Fragment() {
         val receipt = Receipt(
             amount = binding.amountEditText.text.toString().toInt(),
             description = binding.descriptionEditText.text.toString(),
-            type = "asddasd"
+            type = "asddasd",
+            receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
+
         )
         viewModel.addReceiptToList(receipt)
 
@@ -107,13 +107,13 @@ class ReceiptAddingFragment : Fragment() {
 
     }
 
-    private fun receiptTypesListener() {
+    /*private fun receiptTypesListener() {
         binding.receiptTypeEditText.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.descriptionContainer.helperText = validType()
             }
         }
-    }
+    }*/
 
     private fun validType(): String? {
         val descriptionText = binding.descriptionEditText.text.toString().trim()

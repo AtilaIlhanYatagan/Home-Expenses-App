@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_holderFragment_to_receiptAddingFragment"
             app:destination="@id/receiptAddingFragment" />
+        <action
+            android:id="@+id/action_holderFragment_to_receiptDetailFragment"
+            app:destination="@id/receiptDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/receiptAddingFragment"
@@ -22,5 +25,17 @@
         <action
             android:id="@+id/action_receiptAddingFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiptDetailFragment"
+        android:name="com.atila.home.View.ReceiptDetailFragment"
+        android:label="fragment_receipt_detail"
+        tools:layout="@layout/fragment_receipt_detail" >
+        <action
+            android:id="@+id/action_receiptDetailFragment_to_holderFragment"
+            app:destination="@id/holderFragment" />
+        <argument
+            android:name="receiptId"
+            app:argType="string" />
     </fragment>
 </navigation>

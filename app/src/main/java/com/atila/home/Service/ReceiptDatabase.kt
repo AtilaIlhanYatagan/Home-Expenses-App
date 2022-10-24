@@ -4,9 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.atila.home.Model.Receipt
+import com.atila.home.Util.TypeConverterForDate
 
-@Database(entities = [Receipt::class], version = 1)
+
+@Database(entities = [Receipt::class], version = 2)
+@TypeConverters(TypeConverterForDate::class)
 abstract class ReceiptDatabase : RoomDatabase() {
 
     //Database dao connection

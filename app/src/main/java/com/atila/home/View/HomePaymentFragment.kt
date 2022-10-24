@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.atila.home.Adapters.ReceiptAdapter
 import com.atila.home.Model.Receipt
@@ -17,8 +20,19 @@ import com.atila.home.databinding.FragmentHomePaymentBinding
 class HomePaymentFragment : Fragment() {
 
     private lateinit var viewModel: HomePaymentViewModel
+
     private val receiptAdapter = ReceiptAdapter(onReceiptDeleteClick = {
         onDeleteNote(it)
+    }, onItemClick = { receipt, textView: TextView ->
+        val extras = FragmentNavigatorExtras(
+            textView to receipt.id
+        )
+        val action = HolderFragmentDirections.actionHolderFragmentToReceiptDetailFragment(
+            receipt.id
+        )
+
+        findNavController().navigate(action, extras)
+
     })
 
     private fun onDeleteNote(it: Receipt) {
@@ -62,7 +76,6 @@ class HomePaymentFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        println("observe çağırıldı")
         viewModel.receiptsLiveData.observe(viewLifecycleOwner, Observer { receipts ->
             receipts.let {
                 receiptAdapter.submitList(receipts.toMutableList())
