@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.atila.home.ViewModel.ReceiptDetailViewModel
 import com.atila.home.databinding.FragmentReceiptDetailBinding
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatter.RFC_1123_DATE_TIME
 
 
 class ReceiptDetailFragment : Fragment() {
@@ -52,12 +55,18 @@ class ReceiptDetailFragment : Fragment() {
         viewModel.refreshData(receiptIdFromListFragment)
 
 
+        binding.backButton.setOnClickListener() {
+            val action =
+                ReceiptDetailFragmentDirections.actionReceiptDetailFragmentToHolderFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
+
     }
 
     override fun onStart() {
         super.onStart()
 
-        binding.amount.transitionName = receiptIdFromListFragment
+        binding.cardView.transitionName = receiptIdFromListFragment
 
         observeLiveData()
 
@@ -69,11 +78,14 @@ class ReceiptDetailFragment : Fragment() {
         viewModel.receiptLiveData.observe(viewLifecycleOwner) { receipt ->
 
             binding.amount.text = receipt.amount.toString()
-            binding.date.text = receipt.receiptDate.toString()
+            binding.date.text =
+                receipt.receiptDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
+                    .toString()
             binding.description.text = receipt.description
             binding.type.text = receipt.type
 
         }
+
 
     }
 

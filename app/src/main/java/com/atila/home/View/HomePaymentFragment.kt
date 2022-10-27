@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -20,35 +19,28 @@ import com.atila.home.databinding.FragmentHomePaymentBinding
 class HomePaymentFragment : Fragment() {
 
     private lateinit var viewModel: HomePaymentViewModel
+    private var _binding: FragmentHomePaymentBinding? = null
+    private val binding get() = _binding!!
+
+    //This field is used for updating the total spending text without making a room call
+    var totalSpendingText = 0
 
     private val receiptAdapter = ReceiptAdapter(onReceiptDeleteClick = {
         onDeleteNote(it)
-    }, onItemClick = { receipt, textView: TextView ->
+    }, onItemClick = { receipt, cardView: CardView ->
         val extras = FragmentNavigatorExtras(
-            textView to receipt.id
+            cardView to receipt.id
         )
         val action = HolderFragmentDirections.actionHolderFragmentToReceiptDetailFragment(
             receipt.id
         )
-
         findNavController().navigate(action, extras)
-
     })
-
-    private fun onDeleteNote(it: Receipt) {
-        val newList = receiptAdapter.currentList.toMutableList().apply { remove(it) }
-        receiptAdapter.submitList(newList)
-        viewModel.removeFromList(it)
-    }
-
-    private var _binding: FragmentHomePaymentBinding? = null
-    private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomePaymentBinding.inflate(inflater, container, false)
         return binding.root
@@ -76,11 +68,34 @@ class HomePaymentFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.receiptsLiveData.observe(viewLifecycleOwner, Observer { receipts ->
+        viewModel.receiptsLiveData.observe(viewLifecycleOwner) { receipts ->
             receipts.let {
                 receiptAdapter.submitList(receipts.toMutableList())
             }
-        })
+        }
+        viewModel.totalSpendingLiveData.observe(viewLifecycleOwner) { totalSpending ->
+            totalSpending.let {
+                if (totalSpending == null) {
+                    binding.totalSpendingText.text = "Toplam Harcama : 0"
+                } else if (totalSpending != 0) {
+                    totalSpendingText = totalSpending
+                    binding.totalSpendingText.text = "Toplam Harcama : $totalSpending"
+                }
+            }
+        }
+    }
+
+    private fun onDeleteNote(it: Receipt) {
+        // remove the receipt from list
+        val newList = receiptAdapter.currentList.toMutableList().apply { remove(it) }
+        receiptAdapter.submitList(newList)
+
+        //remove the receipt from room
+        viewModel.removeFromList(it)
+
+        //update the UI
+        totalSpendingText -= it.amount
+        binding.totalSpendingText.text = "Toplam Harcama : $totalSpendingText"
     }
 
     override fun onDestroyView() {

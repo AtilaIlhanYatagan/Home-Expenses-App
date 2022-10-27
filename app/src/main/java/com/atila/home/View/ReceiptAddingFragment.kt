@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.atila.home.Model.Receipt
 import com.atila.home.R
 import com.atila.home.ViewModel.HomePaymentViewModel
@@ -40,7 +41,7 @@ class ReceiptAddingFragment : Fragment() {
 
         receiptDescriptionFocusListener()
         receiptAmountFocusListener()
-        //receiptTypesListener()
+        receiptTypesListener()
         binding.submitButton.setOnClickListener { submitForm() }
 
         return binding.root
@@ -49,16 +50,24 @@ class ReceiptAddingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomePaymentViewModel::class.java]
+
+        binding.backButton.setOnClickListener() {
+            val action =
+                ReceiptAddingFragmentDirections.actionReceiptAddingFragmentToHolderFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     private fun submitForm() {
         binding.amountContainer.helperText = validAmount()
         binding.descriptionContainer.helperText = validDescription()
+        binding.receiptTypeContainer.helperText = validType()
 
         val validAmount = binding.amountContainer.helperText == null
         val validDescription = binding.descriptionContainer.helperText == null
+        val validType = binding.receiptTypeContainer.helperText == null
 
-        if (validAmount && validDescription) {
+        if (validAmount && validDescription && validType) {
             resetForm()
         } else {
             invalidForm()
@@ -67,7 +76,8 @@ class ReceiptAddingFragment : Fragment() {
 
     private fun invalidForm() {
         var message = ""
-
+        if (binding.receiptTypeContainer.helperText != null)
+            message += "\n\nHarcama Türü :  " + binding.receiptTypeContainer.helperText
         if (binding.descriptionContainer.helperText != null)
             message += "\n\nAçıklama :  " + binding.descriptionContainer.helperText
         if (binding.amountContainer.helperText != null)
@@ -81,47 +91,47 @@ class ReceiptAddingFragment : Fragment() {
     }
 
     private fun resetForm() {
+        // adding the receipt to the list before resetting the screen.
         val receipt = Receipt(
             amount = binding.amountEditText.text.toString().toInt(),
             description = binding.descriptionEditText.text.toString(),
-            type = "asddasd",
+            type = binding.receiptTypeEditText.text.toString(),
             receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
-
         )
         viewModel.addReceiptToList(receipt)
-
 
         var message = ""
         message += "Açıklama : " + binding.descriptionEditText.text
         message += "\nTutar : " + binding.amountEditText.text
+        message += "\nHarcama Türü : " + binding.receiptTypeEditText.text
 
         AlertDialog.Builder(context)
             .setTitle("Ekleme Başarılı").setMessage(message)
             .setPositiveButton("Onay") { _, _ ->
                 binding.descriptionEditText.text = null
                 binding.amountEditText.text = null
+                binding.receiptTypeEditText.text = null
 
                 binding.amountContainer.helperText = "Gerekli"
                 binding.descriptionContainer.helperText = "Gerekli"
+                binding.receiptTypeContainer.helperText = "Seçiniz"
             }.show()
-
     }
 
-    /*private fun receiptTypesListener() {
+    private fun receiptTypesListener() {
         binding.receiptTypeEditText.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.descriptionContainer.helperText = validType()
             }
         }
-    }*/
+    }
 
     private fun validType(): String? {
-        val descriptionText = binding.descriptionEditText.text.toString().trim()
-        if (descriptionText == "Harcama Türü")
+        val descriptionText = binding.receiptTypeEditText.text.toString()
+        if (descriptionText.isNullOrEmpty())
             return "Seçiniz"
         return null
     }
-
 
     private fun receiptDescriptionFocusListener() {
         binding.descriptionEditText.setOnFocusChangeListener { _, focused ->
@@ -137,7 +147,6 @@ class ReceiptAddingFragment : Fragment() {
             return "Gerekli"
         return null
     }
-
 
     private fun receiptAmountFocusListener() {
         binding.descriptionEditText.setOnFocusChangeListener { _, focused ->

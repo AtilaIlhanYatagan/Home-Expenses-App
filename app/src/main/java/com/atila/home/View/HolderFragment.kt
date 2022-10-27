@@ -43,8 +43,8 @@ class HolderFragment : Fragment() {
     // tab layout --> https://www.youtube.com/watch?v=ZxK7GomWRP8
     private fun setUpTabs() {
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(HomePaymentFragment(), "Home")
-        adapter.addFragment(ApprovalFragment(), "Approval")
+        adapter.addFragment(HomePaymentFragment(), "Ev Giderleri")
+        adapter.addFragment(ApprovalFragment(), "Onay Bekleyenler")
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
