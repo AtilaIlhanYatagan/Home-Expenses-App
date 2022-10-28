@@ -11,12 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.atila.home.Model.Receipt
 import com.atila.home.R
+import com.atila.home.Util.hideKeyboard
 import com.atila.home.ViewModel.HomePaymentViewModel
 import com.atila.home.databinding.FragmentReceiptAddingBinding
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
-
 
 class ReceiptAddingFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class ReceiptAddingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentReceiptAddingBinding.inflate(inflater, container, false)
 
@@ -42,7 +41,11 @@ class ReceiptAddingFragment : Fragment() {
         receiptDescriptionFocusListener()
         receiptAmountFocusListener()
         receiptTypesListener()
-        binding.submitButton.setOnClickListener { submitForm() }
+
+        binding.submitButton.setOnClickListener {
+            submitForm()
+            hideKeyboard()
+        }
 
         return binding.root
     }
@@ -100,11 +103,13 @@ class ReceiptAddingFragment : Fragment() {
         )
         viewModel.addReceiptToList(receipt)
 
+        // creating the message
         var message = ""
         message += "Açıklama : " + binding.descriptionEditText.text
         message += "\nTutar : " + binding.amountEditText.text
         message += "\nHarcama Türü : " + binding.receiptTypeEditText.text
 
+        //showing the related information to the user
         AlertDialog.Builder(context)
             .setTitle("Ekleme Başarılı").setMessage(message)
             .setPositiveButton("Onay") { _, _ ->
@@ -116,6 +121,8 @@ class ReceiptAddingFragment : Fragment() {
                 binding.descriptionContainer.helperText = "Gerekli"
                 binding.receiptTypeContainer.helperText = "Seçiniz"
             }.show()
+
+
     }
 
     private fun receiptTypesListener() {
