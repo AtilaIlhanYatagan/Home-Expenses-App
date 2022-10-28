@@ -21,6 +21,6 @@ data class User(
     val totalSpending: Int,
 
     @ColumnInfo(name = "joinDate")
-    val receiptDate: OffsetDateTime,
+    val joinDate: OffsetDateTime,
 ) {
 }

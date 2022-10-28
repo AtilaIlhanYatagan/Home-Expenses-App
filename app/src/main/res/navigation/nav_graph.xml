@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/holderFragment">
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/holderFragment"
@@ -37,5 +37,23 @@
         <argument
             android:name="receiptId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.atila.home.View.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeSettingFragment"
+            app:destination="@id/homeSettingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeSettingFragment"
+        android:name="com.atila.home.View.HomeSettingFragment"
+        android:label="fragment_home_setting"
+        tools:layout="@layout/fragment_home_setting" >
+        <action
+            android:id="@+id/action_homeSettingFragment_to_holderFragment"
+            app:destination="@id/holderFragment" />
     </fragment>
 </navigation>
