@@ -7,6 +7,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 
+    //necessary for firebase
+    id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -44,6 +47,7 @@ android {
 
 dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
     def nav_version = "2.5.1"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
@@ -51,13 +55,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    implementation 'com.airbnb.android:lottie:5.2.0'
-
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
-
     def roomVersion = "2.4.3"
-
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
@@ -66,10 +64,17 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation 'androidx.room:room-ktx:2.4.3'
 
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

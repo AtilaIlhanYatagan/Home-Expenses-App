@@ -48,18 +48,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
-        android:id="@+id/joinHouse"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_gravity="end"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/rounded_corner_purple"
-        android:src="@drawable/ic_baseline_login_64"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageButton
         android:id="@+id/createHouse"
@@ -77,13 +66,26 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="Yeni Ev"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/createHouse"
         app:layout_constraintTop_toBottomOf="@+id/createHouse" />
+
+    <ImageButton
+        android:id="@+id/joinHouse"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/rounded_corner_purple"
+        android:src="@drawable/ic_baseline_login_64"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"

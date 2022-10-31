@@ -9,7 +9,7 @@ import java.util.*
 @Entity
 data class User(
     @PrimaryKey
-    val userId: String = UUID.randomUUID().toString(),
+    val userId: String,
 
     @ColumnInfo(name = "userName")
     val userName: String,

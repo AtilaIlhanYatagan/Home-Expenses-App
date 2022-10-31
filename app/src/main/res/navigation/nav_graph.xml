@@ -44,16 +44,19 @@
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action
-            android:id="@+id/action_logInFragment_to_homeSettingFragment"
-            app:destination="@id/homeSettingFragment" />
+            android:id="@+id/action_logInFragment_to_holderFragment"
+            app:destination="@id/holderFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeSettingFragment"
-        android:name="com.atila.home.View.HomeSettingFragment"
-        android:label="fragment_home_setting"
-        tools:layout="@layout/fragment_home_setting" >
+        android:id="@+id/registerFragment"
+        android:name="com.atila.home.View.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_homeSettingFragment_to_holderFragment"
+            android:id="@+id/action_registerFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
     </fragment>
 </navigation>

@@ -9,19 +9,19 @@ import java.util.*
 @Entity
 data class Home(
     @PrimaryKey
-    val homeId: String = UUID.randomUUID().toString(),
+    val homeId: String,
 
-    @ColumnInfo(name = "userName")
+    @ColumnInfo(name = "homeName")
     val homeName: String,
-
-    @ColumnInfo(name = "totalSpending")
-    val totalSpending: Int,
 
     @ColumnInfo(name = "joinDate")
     val homeCreationDate: OffsetDateTime,
 
     @ColumnInfo(name = "userList")
     val userList: List<User>
+
+
+
 
 ) {
 }

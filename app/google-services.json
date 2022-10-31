@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "843022923303",
+    "project_id": "homeexpenses-e1b24",
+    "storage_bucket": "homeexpenses-e1b24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843022923303:android:e6f31d6ff65faff370c002",
+        "android_client_info": {
+          "package_name": "com.atila.home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843022923303-gblu474pcj47fgcikgbfdp0fadt1jbp4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLWgRl6lKP3ghxMGOT9qhzAz7l04SHyUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843022923303-gblu474pcj47fgcikgbfdp0fadt1jbp4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
