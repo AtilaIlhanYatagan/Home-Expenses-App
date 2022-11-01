@@ -14,6 +14,10 @@ import com.atila.home.R
 import com.atila.home.Util.hideKeyboard
 import com.atila.home.ViewModel.HomePaymentViewModel
 import com.atila.home.databinding.FragmentReceiptAddingBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 
@@ -24,6 +28,12 @@ class ReceiptAddingFragment : Fragment() {
 
     private lateinit var viewModel: HomePaymentViewModel
 
+    private lateinit var firestore: FirebaseFirestore
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        firestore = Firebase.firestore
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,12 +106,34 @@ class ReceiptAddingFragment : Fragment() {
     private fun resetForm() {
         // adding the receipt to the list before resetting the screen.
         val receipt = Receipt(
+            id = "asd",
             amount = binding.amountEditText.text.toString().toInt(),
             description = binding.descriptionEditText.text.toString(),
             type = binding.receiptTypeEditText.text.toString(),
-            receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
+            receiptDate = OffsetDateTime.now(ZoneId.systemDefault()),
+            addedUser = "asd"
         )
         viewModel.addReceiptToList(receipt)
+
+
+        // receipt ekleme querysi
+        val db = Firebase.firestore
+        val uid = Firebase.auth.currentUser?.uid.toString()
+        val homeRef = db.collection("homes")
+
+        homeRef.whereArrayContains("userIdList", uid).get().addOnSuccessListener {
+            // it refers to the single document here
+            homeRef.document(it.documents[0].id).collection("Receipts").add(receipt)
+                .addOnSuccessListener { documentReference ->
+                    // receipt added succesfully
+                    documentReference.update("id", documentReference.id)
+                    documentReference.update("addedUser", uid)
+                }
+                .addOnFailureListener { e ->
+                    // receipt could not added
+                }
+        }
+
 
         // creating the message
         var message = ""

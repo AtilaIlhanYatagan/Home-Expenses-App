@@ -9,7 +9,7 @@ import java.util.*
 @Entity
 data class Receipt(
     @PrimaryKey
-    val id: String = UUID.randomUUID().toString(),
+    val id: String,
 
     @ColumnInfo(name = "amount")
     val amount: Int,
@@ -23,5 +23,6 @@ data class Receipt(
     @ColumnInfo(name = "date")
     val receiptDate: OffsetDateTime,
 
-    ) {
-}
+    @ColumnInfo(name = "addedUser")
+    val addedUser: String,
+    )

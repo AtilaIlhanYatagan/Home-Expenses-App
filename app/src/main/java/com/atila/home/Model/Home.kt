@@ -19,9 +19,4 @@ data class Home(
 
     @ColumnInfo(name = "userList")
     val userList: List<User>
-
-
-
-
-) {
-}
+)

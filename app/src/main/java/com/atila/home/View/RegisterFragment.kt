@@ -1,6 +1,5 @@
 package com.atila.home.View
 
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,20 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.atila.home.Util.animateViewFromBottomToTop
 import com.atila.home.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.threeten.bp.ZoneId
-import java.security.Timestamp
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.*
 
 class RegisterFragment : Fragment() {
 
@@ -30,6 +23,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +43,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val db = Firebase.firestore
-
         binding.createHouse.setOnClickListener {
             hideButtons()
             showCreateHouseRegistration()
@@ -65,22 +57,6 @@ class RegisterFragment : Fragment() {
             //TODO empty controls
             if (TextUtils.isEmpty(binding.emailEditText.text))
                 binding.emailEditText.error = " asdasd"
-/*
-            auth.createUserWithEmailAndPassword(
-                binding.emailEditText.text.toString(),
-                binding.passwordEditText.text.toString()
-            ).addOnSuccessListener {
-                // user created successfully
-                val user = auth.currentUser
-                user.
-            }.addOnFailureListener { exception ->
-                // failed to create user
-                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
-                    .show()
-            }*/
-        }
-
-        binding.signUpWithHomeCreationButton.setOnClickListener {
 
             auth.createUserWithEmailAndPassword(
                 binding.emailEditText.text.toString(),
@@ -95,37 +71,79 @@ class RegisterFragment : Fragment() {
 
             val uid = Firebase.auth.currentUser?.uid
             val userName = binding.userNameEditText.text.toString().trim()
-            val homeName = binding.homeNameEditText.text.toString().trim()
-            val homeKey = "asd"
+            val homeDocName = binding.homeCodeEditText.text.toString().trim()
+            // add the user to the home with code
+            val homeDocRef = db.collection("homes").document(homeDocName)
+            homeDocRef.update("userIdList", FieldValue.arrayUnion(uid.toString()))
 
-            val docData = hashMapOf(
+            // save the user data
+            val userData = hashMapOf(
+                "dateExample" to com.google.firebase.Timestamp.now(),
+                "userName" to userName,
+            )
+
+            db.collection("users").add(userData).addOnSuccessListener { documentReference ->
+                // home saved to the database successfully
+            }.addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    e.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+        binding.signUpWithHomeCreationButton.setOnClickListener {
+            // create the user
+            println(" butona basıldı")
+            auth.createUserWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnSuccessListener {
+                // user created successfully
+            }.addOnFailureListener { exception ->
+                // failed to create user
+                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
+                    .show()
+            }
+
+            val uid = Firebase.auth.currentUser?.uid
+            val userName = binding.userNameEditText.text.toString().trim()
+            val homeName = binding.homeNameEditText.text.toString().trim()
+
+            val homeData = hashMapOf(
                 "homeName" to homeName,
                 "dateExample" to com.google.firebase.Timestamp.now(),
                 "userIdList" to arrayListOf(uid),
             )
 
-            db.collection("homes").add(docData).addOnSuccessListener { documentReference ->
-                // docData.get(key = homeName) -> key olabilir
-                Toast.makeText(requireContext(), homeKey, Toast.LENGTH_LONG).show()
+            db.collection("homes").add(homeData).addOnSuccessListener { documentReference ->
+                // home saved to the database successfully
+            }.addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    e.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
-                .addOnFailureListener { e ->
 
-                }
-            val city = hashMapOf(
-                "name" to "Los Angeles",
-                "state" to "CA",
-                "country" to "USA"
+            val userData = hashMapOf(
+                "dateExample" to com.google.firebase.Timestamp.now(),
+                "userName" to userName,
             )
-            // receipt ekleme querysi
-            val homeref = db.collection("homes")
-            homeref.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
-                homeref.document(it.documents[0].id).collection("Receipts").add(city)
+
+            db.collection("users").add(userData).addOnSuccessListener { documentReference ->
+                // home saved to the database successfully
+            }.addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    e.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
-
-
         }
-    }
 
+    }
 
     private fun hideButtons() {
         binding.joinHouse.visibility = View.GONE

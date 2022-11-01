@@ -9,7 +9,7 @@ import com.atila.home.Model.Receipt
 import com.atila.home.Util.TypeConverterForDate
 
 
-@Database(entities = [Receipt::class], version = 2)
+@Database(entities = [Receipt::class], version = 3)
 @TypeConverters(TypeConverterForDate::class)
 abstract class ReceiptDatabase : RoomDatabase() {
 

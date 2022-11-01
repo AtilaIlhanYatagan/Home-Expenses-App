@@ -14,13 +14,13 @@ data class User(
     @ColumnInfo(name = "userName")
     val userName: String,
 
-    @ColumnInfo(name = "homeId")
-    val homeId: String,
-
-    @ColumnInfo(name = "totalSpending")
-    val totalSpending: Int,
-
     @ColumnInfo(name = "joinDate")
     val joinDate: OffsetDateTime,
-) {
-}
+
+    /*@ColumnInfo(name = "totalSpending")
+    val totalSpending: Int,
+    */
+
+    /*@ColumnInfo(name = "homeId")
+    val homeId: String,*/
+    )

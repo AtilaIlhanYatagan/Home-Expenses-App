@@ -18,8 +18,11 @@ class LogInFragment : Fragment() {
     private var _binding: FragmentLogInBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
     }
 
     override fun onCreateView(
@@ -39,5 +42,23 @@ class LogInFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.signInButton.setOnClickListener {
+            auth.signInWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnSuccessListener {
+                // user signed in successfully
+                // navigate to the homepage
+                val action = LogInFragmentDirections.actionLogInFragmentToHolderFragment()
+                findNavController().navigate(action)
+
+            }.addOnFailureListener { exception ->
+                // failed to create user
+                // show the error message
+                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
+                    .show()
+
+            }
+        }
     }
 }
