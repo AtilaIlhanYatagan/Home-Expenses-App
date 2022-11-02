@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp "
+        android:layout_height="56dp"
         android:background="#FF543094"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,6 @@
             android:src="@drawable/ic_baseline_add_24" />
 
     </androidx.appcompat.widget.Toolbar>
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

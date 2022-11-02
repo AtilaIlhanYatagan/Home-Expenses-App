@@ -21,7 +21,7 @@ data class Receipt(
     val type: String,
 
     @ColumnInfo(name = "date")
-    val receiptDate: OffsetDateTime,
+    val receiptDate: String,
 
     @ColumnInfo(name = "addedUser")
     val addedUser: String,

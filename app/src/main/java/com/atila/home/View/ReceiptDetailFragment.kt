@@ -73,20 +73,17 @@ class ReceiptDetailFragment : Fragment() {
         //startPostponedEnterTransition()
     }
 
-
     private fun observeLiveData() {
         viewModel.receiptLiveData.observe(viewLifecycleOwner) { receipt ->
 
             binding.amount.text = receipt.amount.toString()
             binding.date.text =
                 receipt.receiptDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
-                    .toString()
+
             binding.description.text = receipt.description
             binding.type.text = receipt.type
 
         }
-
-
     }
 
     override fun onDestroyView() {

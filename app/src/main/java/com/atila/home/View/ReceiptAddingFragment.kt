@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.atila.home.Model.Receipt
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 
 class ReceiptAddingFragment : Fragment() {
 
@@ -110,7 +112,9 @@ class ReceiptAddingFragment : Fragment() {
             amount = binding.amountEditText.text.toString().toInt(),
             description = binding.descriptionEditText.text.toString(),
             type = binding.receiptTypeEditText.text.toString(),
-            receiptDate = OffsetDateTime.now(ZoneId.systemDefault()),
+            receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
+                .toString(),
             addedUser = "asd"
         )
         viewModel.addReceiptToList(receipt)
@@ -118,10 +122,10 @@ class ReceiptAddingFragment : Fragment() {
 
         // receipt ekleme querysi
         val db = Firebase.firestore
-        val uid = Firebase.auth.currentUser?.uid.toString()
+        val uid = Firebase.auth.currentUser?.uid
         val homeRef = db.collection("homes")
 
-        homeRef.whereArrayContains("userIdList", uid).get().addOnSuccessListener {
+        homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // it refers to the single document here
             homeRef.document(it.documents[0].id).collection("Receipts").add(receipt)
                 .addOnSuccessListener { documentReference ->
@@ -130,7 +134,11 @@ class ReceiptAddingFragment : Fragment() {
                     documentReference.update("addedUser", uid)
                 }
                 .addOnFailureListener { e ->
-                    // receipt could not added
+                    Toast.makeText(
+                        requireContext(),
+                        e.localizedMessage?.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
         }
 

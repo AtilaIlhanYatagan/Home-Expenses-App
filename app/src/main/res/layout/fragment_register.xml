@@ -49,13 +49,14 @@
         android:id="@+id/joinHouseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="28dp"
         android:text="Katıl"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/createHouse"
-        app:layout_constraintTop_toBottomOf="@+id/createHouse" />
+
+        app:layout_constraintEnd_toEndOf="@+id/joinHouse"
+        app:layout_constraintTop_toBottomOf="@+id/joinHouse" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailContainer"
