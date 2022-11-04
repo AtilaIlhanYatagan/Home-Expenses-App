@@ -119,7 +119,6 @@ class ReceiptAddingFragment : Fragment() {
         )
         viewModel.addReceiptToList(receipt)
 
-
         // receipt ekleme querysi
         val db = Firebase.firestore
         val uid = Firebase.auth.currentUser?.uid
@@ -127,9 +126,9 @@ class ReceiptAddingFragment : Fragment() {
 
         homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // it refers to the single document here
-            homeRef.document(it.documents[0].id).collection("Receipts").add(receipt)
+            homeRef.document(it.documents[0].id).collection("receipts").add(receipt)
                 .addOnSuccessListener { documentReference ->
-                    // receipt added succesfully
+                    // receipt added successfully , update the fields here
                     documentReference.update("id", documentReference.id)
                     documentReference.update("addedUser", uid)
                 }
@@ -141,7 +140,6 @@ class ReceiptAddingFragment : Fragment() {
                     ).show()
                 }
         }
-
 
         // creating the message
         var message = ""
@@ -161,8 +159,6 @@ class ReceiptAddingFragment : Fragment() {
                 binding.descriptionContainer.helperText = "Gerekli"
                 binding.receiptTypeContainer.helperText = "Seçiniz"
             }.show()
-
-
     }
 
     private fun receiptTypesListener() {

@@ -57,38 +57,49 @@ class RegisterFragment : Fragment() {
         binding.signUpWithJoinHomeButton.setOnClickListener {
             //TODO empty controls
             if (TextUtils.isEmpty(binding.emailEditText.text))
-                binding.emailEditText.error = " asdasd"
+                binding.emailEditText.error = "Bu alan boş bırakılamaz"
+
+            var uid: String?
+            val userName = binding.userNameEditText.text.toString().trim()
+            val homeDocName = binding.homeCodeEditText.text.toString().trim()
 
             auth.createUserWithEmailAndPassword(
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             ).addOnSuccessListener {
                 // user created successfully
+                uid = Firebase.auth.currentUser?.uid // -> initialize the user id when it is ready
+
+                // add the user to the home with code
+                val homeDocRef = db.collection("homes").document(homeDocName)
+                homeDocRef.update("userIdList", FieldValue.arrayUnion(uid.toString()))
+
+                // save the user data
+                val userData = hashMapOf(
+                    "dateExample" to com.google.firebase.Timestamp.now(),
+                    "userName" to userName,
+                    "userId" to uid
+                )
+
+                db.collection("users").add(userData).addOnSuccessListener { documentReference ->
+                    // home saved to the database successfully
+                }.addOnFailureListener { e ->
+                    Toast.makeText(
+                        requireContext(),
+                        e.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                //navigate to the homepage if the user is created successfully
+                val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
+                findNavController().navigate(action)
+
             }.addOnFailureListener { exception ->
                 // failed to create user
-                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-
-            val uid = Firebase.auth.currentUser?.uid
-            val userName = binding.userNameEditText.text.toString().trim()
-            val homeDocName = binding.homeCodeEditText.text.toString().trim()
-            // add the user to the home with code
-            val homeDocRef = db.collection("homes").document(homeDocName)
-            homeDocRef.update("userIdList", FieldValue.arrayUnion(uid.toString()))
-
-            // save the user data
-            val userData = hashMapOf(
-                "dateExample" to com.google.firebase.Timestamp.now(),
-                "userName" to userName,
-            )
-
-            db.collection("users").add(userData).addOnSuccessListener { documentReference ->
-                // home saved to the database successfully
-            }.addOnFailureListener { e ->
                 Toast.makeText(
                     requireContext(),
-                    e.toString(),
+                    exception.localizedMessage,
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -135,23 +146,19 @@ class RegisterFragment : Fragment() {
                         // home saved to the database successfully
                     }.addOnFailureListener { e ->
                         Toast.makeText(
-                            requireContext(),
-                            e.toString(),
-                            Toast.LENGTH_LONG
+                            requireContext(), e.localizedMessage, Toast.LENGTH_LONG
                         ).show()
                     }
 
+                //navigate to the homepage if the user is created successfully
+                val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
+                findNavController().navigate(action)
 
             }.addOnFailureListener { exception ->
                 // failed to create user
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
                     .show()
             }
-
-            /*
-            val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
-            findNavController().navigate(action)
-            */
         }
     }
 
@@ -190,3 +197,4 @@ class RegisterFragment : Fragment() {
         animateViewFromBottomToTop(binding.signUpWithJoinHomeButton)
     }
 }
+
