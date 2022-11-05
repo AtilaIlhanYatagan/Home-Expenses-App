@@ -5,12 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.atila.home.Adapters.ViewPagerAdapter
+import com.atila.home.R
+import com.atila.home.ViewModel.UserViewModel
 import com.atila.home.databinding.FragmentHolderBinding
 
 
 class HolderFragment : Fragment() {
+
+    private val userViewModel: UserViewModel by activityViewModels()
 
     private var _binding: FragmentHolderBinding? = null
     private val binding get() = _binding!!
@@ -32,12 +40,24 @@ class HolderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userViewModel.checkCurrentUser()
+
         setUpTabs()
 
         binding.imageButton.setOnClickListener() {
             val action = HolderFragmentDirections.actionHolderFragmentToReceiptAddingFragment()
-            Navigation.findNavController(it).navigate(action)
+            findNavController().navigate(action)
         }
+
+        val navController = findNavController()
+        userViewModel.userLiveData.observe(viewLifecycleOwner, Observer { user ->
+            if (user != null) {
+                Toast.makeText(requireContext(), "Welcoome", Toast.LENGTH_LONG).show()
+            } else {
+                navController.navigate(R.id.logInFragment)
+            }
+        })
     }
 
     // tab layout --> https://www.youtube.com/watch?v=ZxK7GomWRP8
@@ -47,6 +67,5 @@ class HolderFragment : Fragment() {
         adapter.addFragment(ApprovalFragment(), "Onay Bekleyenler")
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
-
     }
 }

@@ -42,7 +42,7 @@ class LogInFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.signInButton.setOnClickListener {
+        binding.logInButton.setOnClickListener {
             auth.signInWithEmailAndPassword(
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
+    app:startDestination="@id/holderFragment">
 
     <fragment
         android:id="@+id/holderFragment"
         android:name="com.atila.home.View.HolderFragment"
         android:label="fragment_holder"
-        tools:layout="@layout/fragment_holder" >
+        tools:layout="@layout/fragment_holder">
         <action
             android:id="@+id/action_holderFragment_to_receiptAddingFragment"
             app:destination="@id/receiptAddingFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/receiptAddingFragment"
         android:name="com.atila.home.View.ReceiptAddingFragment"
         android:label="fragment_receipt_adding"
-        tools:layout="@layout/fragment_receipt_adding" >
+        tools:layout="@layout/fragment_receipt_adding">
         <action
             android:id="@+id/action_receiptAddingFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
@@ -30,7 +30,7 @@
         android:id="@+id/receiptDetailFragment"
         android:name="com.atila.home.View.ReceiptDetailFragment"
         android:label="fragment_receipt_detail"
-        tools:layout="@layout/fragment_receipt_detail" >
+        tools:layout="@layout/fragment_receipt_detail">
         <action
             android:id="@+id/action_receiptDetailFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
@@ -42,7 +42,7 @@
         android:id="@+id/logInFragment"
         android:name="com.atila.home.View.LogInFragment"
         android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" >
+        tools:layout="@layout/fragment_log_in">
         <action
             android:id="@+id/action_logInFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
@@ -54,7 +54,7 @@
         android:id="@+id/registerFragment"
         android:name="com.atila.home.View.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_holderFragment"
             app:destination="@id/holderFragment" />

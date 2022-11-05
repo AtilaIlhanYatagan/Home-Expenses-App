@@ -81,15 +81,14 @@ class RegisterFragment : Fragment() {
                     "userId" to uid
                 )
 
-                db.collection("users").add(userData).addOnSuccessListener { documentReference ->
-                    // home saved to the database successfully
-                }.addOnFailureListener { e ->
-                    Toast.makeText(
-                        requireContext(),
-                        e.toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                db.collection("users").document(uid!!).set(userData)
+                    .addOnSuccessListener { documentReference ->
+                        // home saved to the database successfully
+                    }.addOnFailureListener { e ->
+                        Toast.makeText(
+                            requireContext(), e.localizedMessage, Toast.LENGTH_LONG
+                        ).show()
+                    }
 
                 //navigate to the homepage if the user is created successfully
                 val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
