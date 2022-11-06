@@ -43,13 +43,6 @@ class HolderFragment : Fragment() {
 
         userViewModel.checkCurrentUser()
 
-        setUpTabs()
-
-        binding.imageButton.setOnClickListener() {
-            val action = HolderFragmentDirections.actionHolderFragmentToReceiptAddingFragment()
-            findNavController().navigate(action)
-        }
-
         val navController = findNavController()
         userViewModel.userLiveData.observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
@@ -58,6 +51,15 @@ class HolderFragment : Fragment() {
                 navController.navigate(R.id.logInFragment)
             }
         })
+
+        setUpTabs()
+
+        binding.imageButton.setOnClickListener() {
+            val action = HolderFragmentDirections.actionHolderFragmentToReceiptAddingFragment()
+            findNavController().navigate(action)
+        }
+
+
     }
 
     // tab layout --> https://www.youtube.com/watch?v=ZxK7GomWRP8

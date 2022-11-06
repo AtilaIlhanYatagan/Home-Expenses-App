@@ -59,4 +59,9 @@
             android:id="@+id/action_registerFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeDetailFragment"
+        android:name="com.atila.home.View.HomeDetailFragment"
+        android:label="fragment_home_detail"
+        tools:layout="@layout/fragment_home_detail" />
 </navigation>
