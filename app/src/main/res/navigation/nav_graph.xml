@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/holderFragment"
         android:name="com.atila.home.View.HolderFragment"
-        android:label="fragment_holder"
+        android:label="Ev Giderleri"
         tools:layout="@layout/fragment_holder">
         <action
             android:id="@+id/action_holderFragment_to_receiptAddingFragment"
@@ -17,23 +17,22 @@
             android:id="@+id/action_holderFragment_to_receiptDetailFragment"
             app:destination="@id/receiptDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/receiptAddingFragment"
         android:name="com.atila.home.View.ReceiptAddingFragment"
-        android:label="fragment_receipt_adding"
+        android:label="Fatura Ekleme"
         tools:layout="@layout/fragment_receipt_adding">
         <action
             android:id="@+id/action_receiptAddingFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/receiptDetailFragment"
         android:name="com.atila.home.View.ReceiptDetailFragment"
-        android:label="fragment_receipt_detail"
+        android:label="Fatura Detayı"
         tools:layout="@layout/fragment_receipt_detail">
-        <action
-            android:id="@+id/action_receiptDetailFragment_to_holderFragment"
-            app:destination="@id/holderFragment" />
         <argument
             android:name="receiptId"
             app:argType="string" />
@@ -41,7 +40,7 @@
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.atila.home.View.LogInFragment"
-        android:label="fragment_log_in"
+        android:label="Giriş Ekranı"
         tools:layout="@layout/fragment_log_in">
         <action
             android:id="@+id/action_logInFragment_to_holderFragment"
@@ -53,15 +52,16 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.atila.home.View.RegisterFragment"
-        android:label="fragment_register"
+        android:label="Kayıt Ol"
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_holderFragment"
             app:destination="@id/holderFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/homeDetailFragment"
         android:name="com.atila.home.View.HomeDetailFragment"
-        android:label="fragment_home_detail"
+        android:label="Ev Bilgileri"
         tools:layout="@layout/fragment_home_detail" />
 </navigation>

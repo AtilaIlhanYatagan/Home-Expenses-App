@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     //to monitor network connection ->  //https://www.youtube.com/watch?v=To9aHYD5OVk&ab_channel=CodingWithMitch
     private lateinit var connectionLiveData: ConnectionLiveData
 
+    //https://www.youtube.com/watch?v=PvuaPL4D-N8&ab_channel=CodeWithMazn
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-
 
         connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observe(this) { isNetworkAvailable: Boolean ->

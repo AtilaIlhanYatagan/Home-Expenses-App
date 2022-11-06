@@ -66,11 +66,6 @@ class ReceiptAddingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[HomePaymentViewModel::class.java]
 
-        binding.backButton.setOnClickListener() {
-            val action =
-                ReceiptAddingFragmentDirections.actionReceiptAddingFragmentToHolderFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
     }
 
     private fun submitForm() {

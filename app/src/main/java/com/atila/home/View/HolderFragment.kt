@@ -54,11 +54,11 @@ class HolderFragment : Fragment() {
 
         setUpTabs()
 
-        binding.imageButton.setOnClickListener() {
+        // TODO floating action button yapılacak
+        binding.floatingActionButton.setOnClickListener() {
             val action = HolderFragmentDirections.actionHolderFragmentToReceiptAddingFragment()
             findNavController().navigate(action)
         }
-
 
     }
 

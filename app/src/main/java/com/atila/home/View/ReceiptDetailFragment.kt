@@ -54,13 +54,6 @@ class ReceiptDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ReceiptDetailViewModel::class.java]
         viewModel.refreshData(receiptIdFromListFragment)
 
-
-        binding.backButton.setOnClickListener() {
-            val action =
-                ReceiptDetailFragmentDirections.actionReceiptDetailFragmentToHolderFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
-
     }
 
     override fun onStart() {
