@@ -7,26 +7,46 @@
     tools:context=".View.HomeDetailFragment">
 
     <TextView
-        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:text="Ev Adı: "
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/homeNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/homeNameTextView" />
+
+    <TextView
+        android:id="@+id/homeNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="65dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/homeCodeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
         android:text="Ev kodu: "
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/homeCodeTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/homeCodeTextView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/homeCodeTextView"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/homeCodeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Ev kodu: "
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="1dp"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/homeNameTextView"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
