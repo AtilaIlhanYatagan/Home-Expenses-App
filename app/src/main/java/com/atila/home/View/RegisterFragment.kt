@@ -90,10 +90,10 @@ class RegisterFragment : Fragment() {
                         ).show()
                     }
 
-                //navigate to the homepage if the user is created successfully
+               /* //navigate to the homepage if the user is created successfully
                 val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
                 findNavController().navigate(action)
-
+*/
             }.addOnFailureListener { exception ->
                 // failed to create user
                 Toast.makeText(
@@ -149,10 +149,10 @@ class RegisterFragment : Fragment() {
                         ).show()
                     }
 
-                //navigate to the homepage if the user is created successfully
+              /*  //navigate to the homepage if the user is created successfully
                 val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
                 findNavController().navigate(action)
-
+*/
             }.addOnFailureListener { exception ->
                 // failed to create user
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)

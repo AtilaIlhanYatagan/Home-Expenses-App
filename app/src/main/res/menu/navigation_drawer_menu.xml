@@ -4,7 +4,11 @@
         <item
             android:id="@+id/homeDetailFragment"
             android:icon="@drawable/ic_baseline_add_home_64"
-            android:title="Ev Ayrıntıları">
+            android:title="@string/home_details_string">
+        </item>
+        <item
+            android:id="@+id/signOut"
+            android:title="@string/sign_out_string">
         </item>
     </group>
 </menu>

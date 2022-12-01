@@ -22,11 +22,7 @@
         android:id="@+id/receiptAddingFragment"
         android:name="com.atila.home.View.ReceiptAddingFragment"
         android:label="Fatura Ekleme"
-        tools:layout="@layout/fragment_receipt_adding">
-        <action
-            android:id="@+id/action_receiptAddingFragment_to_holderFragment"
-            app:destination="@id/holderFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_receipt_adding" />
 
     <fragment
         android:id="@+id/receiptDetailFragment"
@@ -42,9 +38,8 @@
         android:name="com.atila.home.View.LogInFragment"
         android:label="Giriş Ekranı"
         tools:layout="@layout/fragment_log_in">
-        <action
-            android:id="@+id/action_logInFragment_to_holderFragment"
-            app:destination="@id/holderFragment" />
+        <!-- app:popUpTo="@id/logInFragment"
+         app:popUpToInclusive="true"-->
         <action
             android:id="@+id/action_logInFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -53,11 +48,7 @@
         android:id="@+id/registerFragment"
         android:name="com.atila.home.View.RegisterFragment"
         android:label="Kayıt Ol"
-        tools:layout="@layout/fragment_register">
-        <action
-            android:id="@+id/action_registerFragment_to_holderFragment"
-            app:destination="@id/holderFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_register" />
 
     <fragment
         android:id="@+id/homeDetailFragment"

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -25,41 +26,37 @@ class HolderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        userViewModel.setCurrentUser()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
+        userViewModel.userLiveData.observe(viewLifecycleOwner, Observer { user ->
+            if (user != null) {
+                // user exists (already logged in)
+            } else {
+                // user does not exist go to the login screen (logged out or never logged in)
+                findNavController().navigate(R.id.logInFragment)
+            }
+        })
+
         _binding = FragmentHolderBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        userViewModel.checkCurrentUser()
-
-        val navController = findNavController()
-        userViewModel.userLiveData.observe(viewLifecycleOwner, Observer { user ->
-            if (user != null) {
-                Toast.makeText(requireContext(), "Welcoome", Toast.LENGTH_LONG).show()
-            } else {
-                navController.navigate(R.id.logInFragment)
-            }
-        })
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
 
         setUpTabs()
 
-        // TODO floating action button yapılacak
         binding.floatingActionButton.setOnClickListener() {
             val action = HolderFragmentDirections.actionHolderFragmentToReceiptAddingFragment()
             findNavController().navigate(action)
         }
-
     }
 
     // tab layout --> https://www.youtube.com/watch?v=ZxK7GomWRP8

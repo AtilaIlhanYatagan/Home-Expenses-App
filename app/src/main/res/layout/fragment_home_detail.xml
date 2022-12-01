@@ -7,6 +7,7 @@
     tools:context=".View.HomeDetailFragment">
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
@@ -31,12 +32,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="231dp"
         android:text="Ev kodu: "
         android:textColor="@color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/homeCodeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/homeCodeCopyButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -48,5 +52,19 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/homeNameTextView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/homeCodeCopyButton"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="37dp"
+        android:background="@color/black"
+        android:src="@drawable/ic_baseline_content_copy_36"
+        app:layout_constraintBottom_toTopOf="@+id/homeCodeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/homeCodeTextView">
+
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

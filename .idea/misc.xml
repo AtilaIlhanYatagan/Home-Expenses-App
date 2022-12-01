@@ -5,15 +5,18 @@
       <map>
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/custom_input.xml" value="0.305" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1965" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_content_copy_36.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.3295" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_purple.xml" value="0.2455" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_yellow.xml" value="0.2595" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/splash_image.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_approval.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_approval_screen.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_holder.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_home_detail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_home_detail.xml" value="0.264" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_home_payment.xml" value="0.3442028985507246" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_home_payments_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_home_setting.xml" value="0.264" />
@@ -21,7 +24,8 @@
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_log_in.xml" value="0.264" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_receipt_adding.xml" value="0.33" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_receipt_detail.xml" value="0.33" />
-        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_register.xml" value="0.8" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_register.xml" value="0.2" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/fragment_splash.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/item_receipt.xml" value="0.5" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/layout/receipt_dropdown_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/menu/navigation_drawer_menu.xml" value="0.365625" />

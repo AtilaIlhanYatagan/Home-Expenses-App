@@ -15,7 +15,7 @@ class HomeDetailViewModel : ViewModel() {
 
     val homeDocLiveData = MutableLiveData<DocumentSnapshot>()
 
-    fun setHomeCodeLiveData() {
+    fun setHomeDocLiveData() {
         homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // this document refers to the home document that contains the current user
             homeDocLiveData.value = it.documents[0]
