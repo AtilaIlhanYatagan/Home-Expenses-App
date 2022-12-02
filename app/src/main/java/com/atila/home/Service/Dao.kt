@@ -27,7 +27,7 @@ interface Dao {
 
     //to delete all pokemons
     @Query("DELETE FROM Receipt")
-    suspend fun deleteAllFavoritePokemons(): Int
+    suspend fun deleteAllReceipts(): Int
 
     // to retrieve the count for receipts
     @Query("SELECT COUNT(*) FROM Receipt")

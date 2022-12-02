@@ -42,7 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.Theme_Home)
-        val myUserStateObserver =
+        setContentView(binding.root)
+        AndroidThreeTen.init(this)
+
+        /*val myUserStateObserver =
             Observer<FirebaseAuthUserState> { userState ->
                 when (userState) {
                     is UserSignedOut ->
@@ -56,11 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         val authStateLiveData = auth.newFirebaseAuthStateLiveData()
         authStateLiveData.observeForever(myUserStateObserver)
-
-        AndroidThreeTen.init(this)
-
-        setContentView(binding.root)
-
+*/
         navController =
             (supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment).navController
         drawerLayout = binding.drawerLayout
@@ -79,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // sign out click listener on the navigation drawer
         binding.navigationView.menu.findItem(R.id.signOut).setOnMenuItemClickListener {
             auth.signOut()
             navController.popBackStack(R.id.holderFragment, true)
@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

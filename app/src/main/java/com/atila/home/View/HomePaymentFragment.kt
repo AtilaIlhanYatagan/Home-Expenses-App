@@ -57,14 +57,11 @@ class HomePaymentFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[HomePaymentViewModel::class.java]
 
-        viewModel.refreshData()
-
-        initRecyclerView()
-
-    }
-
-    private fun initRecyclerView() {
         binding.recyclerViewHome.adapter = receiptAdapter
+
+        viewModel.refreshDataFromFirebase()
+        viewModel.refreshTotalSpendingData()
+
     }
 
     private fun observeLiveData() {
@@ -73,6 +70,7 @@ class HomePaymentFragment : Fragment() {
                 receiptAdapter.submitList(receipts.toMutableList())
             }
         }
+
         viewModel.totalSpendingLiveData.observe(viewLifecycleOwner) { totalSpending ->
             totalSpending.let {
                 if (totalSpending == null) {

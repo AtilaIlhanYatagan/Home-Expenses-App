@@ -31,7 +31,7 @@ class ReceiptAdapter(
             holder.bind(receipt)
 
             this.itemView.animation =
-                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyler_view_animation)
+                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recycler_view_animation)
 
         }
 

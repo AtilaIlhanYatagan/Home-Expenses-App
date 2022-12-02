@@ -112,7 +112,7 @@ class ReceiptAddingFragment : Fragment() {
                 .toString(),
             addedUser = "asd"
         )
-        viewModel.addReceiptToList(receipt)
+        viewModel.addReceiptToDatabase(receipt)
 
         // receipt ekleme querysi
         val db = Firebase.firestore
