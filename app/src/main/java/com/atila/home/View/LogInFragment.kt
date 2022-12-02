@@ -1,6 +1,8 @@
 package com.atila.home.View
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,8 @@ class LogInFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+
+        //finish activity on back press
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // in here you can do logic when backPress is clicked
@@ -58,6 +62,10 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
+        //Text watchers for login button enable-disable
+        binding.emailEditText.addTextChangedListener(loginTextWatcher)
+        binding.passwordEditText.addTextChangedListener(loginTextWatcher)
 
         binding.registerButton.setOnClickListener {
             val action = LogInFragmentDirections.actionLogInFragmentToRegisterFragment()
@@ -81,6 +89,19 @@ class LogInFragment : Fragment() {
                 Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
                     .show()
             }
+        }
+    }
+
+    private val loginTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun afterTextChanged(p0: Editable?) {}
+
+        // login button enable or disable
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val userEmail = binding.emailEditText.text?.trim()
+            val userPassword = binding.passwordEditText.text?.trim()
+            binding.logInButton.isEnabled =
+                !userEmail.isNullOrEmpty() && !userPassword.isNullOrEmpty()
         }
     }
 }

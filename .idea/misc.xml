@@ -3,11 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/custom_input.xml" value="0.305" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1965" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_add_home_64.xml" value="0.3425" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_content_copy_36.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.3295" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3425" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_login_64.xml" value="0.3425" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_baseline_wifi_off_24.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_blue.xml" value="0.3425" />
+        <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_layout.xml" value="0.3425" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_purple.xml" value="0.2455" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/rounded_corner_yellow.xml" value="0.2595" />
         <entry key="..\:/Users/90534/StudioProjects/Home/app/src/main/res/drawable/splash_image.xml" value="0.3425" />
