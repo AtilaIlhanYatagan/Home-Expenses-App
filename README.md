@@ -1,6 +1,7 @@
 # Home Expenses
 Home Expenses is an application where you can track your expenses together with your housemates.
-This is and native application for android devices. Built with **Kotlin**. (still in development)
+Native application for android devices.
+Built with **Kotlin**. (still in development)
 
 ## Technologies
 - The project follows **MVVM** and Single Activity structure,
@@ -16,27 +17,32 @@ This is and native application for android devices. Built with **Kotlin**. (stil
 ## Screenshots
 <table>
   <tr>
-     <td>Pokemon Listing Page</td>
-     <td>Pokemon Detail Page</td>
-     <td>Favorite Pokemons Page</td>
+     <td>Homepage</td>
+     <td>Detail Page</td>
+     <td>Receipt Added</td>
+     <td>Receipt Failed</td>
+    
   </tr>
   <tr>
-    <td><img src="Screenshots/list.jpeg" width= height=480></td>
-    <td><img src="Screenshots/detail.jpeg" width= height=480></td>
-    <td><img src="Screenshots/favorites.jpeg" width= height=480></td>
+    <td><img src="Screenshots/homepage.jpeg"  height=460></td>
+    <td><img src="Screenshots/detail page.jpeg"  height=460></td>
+    <td><img src="Screenshots/receipt_added.jpeg"  height=460></td>
+    <td><img src="Screenshots/receipt_failed.jpeg"  height=460></td>
   </tr>
  </table>
  
  <table>
   <tr>
-     <td>Search Bar</td>
-     <td>Failed Search</td>
-     <td>Splash Screen</td>
+     <td>Login Screen</td>
+     <td>Register Screen</td>
+     <td>New Home Registeration</td>
+     <td>Home Details Page</td>
   </tr>
   <tr>
-    <td><img src="Screenshots/searchdone.jpeg" width= height=480></td>
-    <td><img src="Screenshots/search.jpeg" width= height=480></td>
-    <td><img src="Screenshots/splash.jpeg" width= height=480></td>
+    <td><img src="Screenshots/login.jpeg"  height=480></td>
+    <td><img src="Screenshots/register.jpeg"  height=480></td>
+    <td><img src="Screenshots/register1.jpeg"  height=480></td>
+    <td><img src="Screenshots/home_detail.jpeg"  height=480></td>
   </tr>
  </table>
  
