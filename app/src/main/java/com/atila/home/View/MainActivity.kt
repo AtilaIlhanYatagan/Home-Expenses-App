@@ -3,6 +3,7 @@ package com.atila.home.View
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import com.atila.home.R
 import com.atila.home.Util.ConnectionLiveData
 import com.atila.home.ViewModel.*
 import com.atila.home.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -45,21 +47,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         AndroidThreeTen.init(this)
 
-        /*val myUserStateObserver =
-            Observer<FirebaseAuthUserState> { userState ->
-                when (userState) {
-                    is UserSignedOut ->
-                        setTheme(R.style.Theme_Home)
-                    is UserSignedIn ->
-                        setTheme(R.style.Theme_Home)
-                    is UserUnknown ->
-                        print("asd")
-                }
-            }
-
-        val authStateLiveData = auth.newFirebaseAuthStateLiveData()
-        authStateLiveData.observeForever(myUserStateObserver)
-*/
         navController =
             (supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment).navController
         drawerLayout = binding.drawerLayout

@@ -33,16 +33,15 @@ class HolderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         userViewModel.userLiveData.observe(viewLifecycleOwner, Observer { user ->
             if (user != null) {
+                print("user var" + user.uid)
                 // user exists (already logged in)
             } else {
                 // user does not exist go to the login screen (logged out or never logged in)
                 findNavController().navigate(R.id.logInFragment)
             }
         })
-
         _binding = FragmentHolderBinding.inflate(inflater, container, false)
         return binding.root
     }

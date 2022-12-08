@@ -55,7 +55,6 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
     private val homeRef = db.collection("homes")
 
     fun refreshDataFromFirebase() {
-        println("veri çekti")
         // clear the liveData and the room database
         receiptsLiveData.postValue(arrayListOf())
         deleteAllReceiptsFromRoom()

@@ -54,6 +54,60 @@ class RegisterFragment : Fragment() {
             showJoinHouseRegistration()
         }
 
+        binding.signUpWithHomeCreationButton.setOnClickListener {
+
+            var uid: String?
+            val userName = binding.userNameEditText.text.toString().trim()
+            val homeName = binding.homeNameEditText.text.toString().trim()
+
+            // create the user
+            auth.createUserWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnSuccessListener {
+                // user created successfully
+                uid = Firebase.auth.currentUser?.uid
+                val homeData = hashMapOf(
+                    "homeName" to homeName,
+                    "dateExample" to com.google.firebase.Timestamp.now(),
+                    "userIdList" to arrayListOf(uid),
+                )
+                // create the home for the first time and set the parameters
+                db.collection("homes").add(homeData).addOnSuccessListener { documentReference ->
+                    // home saved to the database successfully
+                    val userData = hashMapOf(
+                        "dateExample" to com.google.firebase.Timestamp.now(),
+                        "userName" to userName,
+                        "userId" to uid
+                    )
+                    // create the user and save to the database
+                    db.collection("users").document(uid!!).set(userData)
+                        .addOnSuccessListener { documentReference ->
+                            // user saved to the database successfully
+                            // all the operations are successful -> pop the register fragment
+                            findNavController().popBackStack()
+                        }.addOnFailureListener { e ->
+                            Toast.makeText(
+                                requireContext(),
+                                e.localizedMessage, Toast.LENGTH_LONG
+                            ).show()
+                        }
+                }.addOnFailureListener { e ->
+                    // could not save the home - make a toast
+                    Toast.makeText(
+                        requireContext(),
+                        e.toString(), Toast.LENGTH_LONG
+                    ).show()
+                }
+            }.addOnFailureListener { exception ->
+                // failed to create user - make a toast
+                Toast.makeText(
+                    requireContext(),
+                    exception.localizedMessage, Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
         binding.signUpWithJoinHomeButton.setOnClickListener {
             //TODO empty controls
             if (TextUtils.isEmpty(binding.emailEditText.text))
@@ -83,83 +137,24 @@ class RegisterFragment : Fragment() {
 
                 db.collection("users").document(uid!!).set(userData)
                     .addOnSuccessListener { documentReference ->
-                        // home saved to the database successfully
+                        // all the operations are successful -> pop the register fragment to the login
+                        findNavController().popBackStack()
                     }.addOnFailureListener { e ->
                         Toast.makeText(
                             requireContext(), e.localizedMessage, Toast.LENGTH_LONG
                         ).show()
                     }
 
-               /* //navigate to the homepage if the user is created successfully
-                val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
-                findNavController().navigate(action)
-*/
             }.addOnFailureListener { exception ->
                 // failed to create user
                 Toast.makeText(
                     requireContext(),
-                    exception.localizedMessage,
-                    Toast.LENGTH_LONG
+                    exception.localizedMessage, Toast.LENGTH_LONG
                 ).show()
             }
         }
-
-        binding.signUpWithHomeCreationButton.setOnClickListener {
-
-            var uid: String?
-            val userName = binding.userNameEditText.text.toString().trim()
-            val homeName = binding.homeNameEditText.text.toString().trim()
-
-            // create the user
-            auth.createUserWithEmailAndPassword(
-                binding.emailEditText.text.toString(),
-                binding.passwordEditText.text.toString()
-            ).addOnSuccessListener {
-                // user created successfully
-                uid = Firebase.auth.currentUser?.uid
-                val homeData = hashMapOf(
-                    "homeName" to homeName,
-                    "dateExample" to com.google.firebase.Timestamp.now(),
-                    "userIdList" to arrayListOf(uid),
-                )
-                // create the home for the first time and set the parameters
-                db.collection("homes").add(homeData).addOnSuccessListener { documentReference ->
-                    // home saved to the database successfully
-                }.addOnFailureListener { e ->
-                    // could not save the home - make a toast
-                    Toast.makeText(
-                        requireContext(),
-                        e.toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                val userData = hashMapOf(
-                    "dateExample" to com.google.firebase.Timestamp.now(),
-                    "userName" to userName,
-                    "userId" to uid
-                )
-
-                db.collection("users").document(uid!!).set(userData)
-                    .addOnSuccessListener { documentReference ->
-                        // home saved to the database successfully
-                    }.addOnFailureListener { e ->
-                        Toast.makeText(
-                            requireContext(), e.localizedMessage, Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-              /*  //navigate to the homepage if the user is created successfully
-                val action = RegisterFragmentDirections.actionRegisterFragmentToHolderFragment()
-                findNavController().navigate(action)
-*/
-            }.addOnFailureListener { exception ->
-                // failed to create user
-                Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-        }
     }
+
 
     private fun hideButtons() {
         binding.joinHouse.visibility = View.GONE
