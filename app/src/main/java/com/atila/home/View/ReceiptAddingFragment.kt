@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.atila.home.Model.Receipt
 import com.atila.home.R
 import com.atila.home.Util.hideKeyboard
@@ -131,38 +132,40 @@ class ReceiptAddingFragment : Fragment() {
                         Snackbar.make(
                             binding.coordinatorLayout,
                             "Ekleme Başarılı",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                            Snackbar.LENGTH_LONG
+                        ).setAction("Listeye Dön") {
+                            findNavController().popBackStack()
+                        }.show()
                     }
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(
-                        requireContext(),
-                        e.localizedMessage?.toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+        }.addOnFailureListener { e ->
+            Toast.makeText(
+                requireContext(),
+                e.localizedMessage?.toString(),
+                Toast.LENGTH_LONG
+            ).show()
         }
-        /*
-        // creating the message
-        var message = ""
-        message += "Açıklama : " + binding.descriptionEditText.text
-        message += "\nTutar : " + binding.amountEditText.text
-        message += "\nHarcama Türü : " + binding.receiptTypeEditText.text
-
-        //showing the related information to the user
-        AlertDialog.Builder(context)
-            .setTitle("Ekleme Başarılı").setMessage(message)
-            .setPositiveButton("Onay") { _, _ ->
-                binding.descriptionEditText.text = null
-                binding.amountEditText.text = null
-                binding.receiptTypeEditText.text = null
-
-                binding.amountContainer.helperText = "Gerekli"
-                binding.descriptionContainer.helperText = "Gerekli"
-                binding.receiptTypeContainer.helperText = "Seçiniz"
-            }.show()*/
     }
+    /*
+    // creating the message
+    var message = ""
+    message += "Açıklama : " + binding.descriptionEditText.text
+    message += "\nTutar : " + binding.amountEditText.text
+    message += "\nHarcama Türü : " + binding.receiptTypeEditText.text
+
+    //showing the related information to the user
+    AlertDialog.Builder(context)
+        .setTitle("Ekleme Başarılı").setMessage(message)
+        .setPositiveButton("Onay") { _, _ ->
+            binding.descriptionEditText.text = null
+            binding.amountEditText.text = null
+            binding.receiptTypeEditText.text = null
+
+            binding.amountContainer.helperText = "Gerekli"
+            binding.descriptionContainer.helperText = "Gerekli"
+            binding.receiptTypeContainer.helperText = "Seçiniz"
+        }.show()*/
+
 
     private fun receiptTypesListener() {
         binding.receiptTypeEditText.setOnFocusChangeListener { _, focused ->
@@ -208,5 +211,4 @@ class ReceiptAddingFragment : Fragment() {
             return "Gerekli"
         return null
     }
-
 }
