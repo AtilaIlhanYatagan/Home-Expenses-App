@@ -26,5 +26,5 @@ data class Receipt(
     val receiptDate: String = "null",
 
     @ColumnInfo(name = "addedUser")
-    val addedUser: String = "null",
+    var addedUserId: String = "null",
     )

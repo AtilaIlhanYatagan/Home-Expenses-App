@@ -6,21 +6,16 @@ import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 import java.util.*
 
+//to be able to serialize the firebase object, fields have to have a first value!!
+
 @Entity
 data class User(
     @PrimaryKey
-    val userId: String,
+    val userId: String = "null",
 
     @ColumnInfo(name = "userName")
-    val userName: String,
+    val userName: String = "null",
 
     @ColumnInfo(name = "joinDate")
-    val joinDate: OffsetDateTime,
-
-    /*@ColumnInfo(name = "totalSpending")
-    val totalSpending: Int,
-    */
-
-    /*@ColumnInfo(name = "homeId")
-    val homeId: String,*/
-    )
+    val joinDate: OffsetDateTime? = null,
+)

@@ -7,12 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.atila.home.ViewModel.ReceiptDetailViewModel
 import com.atila.home.databinding.FragmentReceiptDetailBinding
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatter.RFC_1123_DATE_TIME
-
 
 class ReceiptDetailFragment : Fragment() {
     //viewModel declaration
@@ -43,9 +40,6 @@ class ReceiptDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //shared element transition
-        //postponeEnterTransition()
-
         //getting the arguments
         arguments?.let {
             receiptIdFromListFragment = ReceiptDetailFragmentArgs.fromBundle(it).receiptId
@@ -58,23 +52,23 @@ class ReceiptDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        // shared element transition
         binding.cardView.transitionName = receiptIdFromListFragment
 
         observeLiveData()
 
-        //startPostponedEnterTransition()
     }
 
     private fun observeLiveData() {
         viewModel.receiptLiveData.observe(viewLifecycleOwner) { receipt ->
 
             binding.amount.text = receipt.amount.toString()
-            binding.date.text =
-                receipt.receiptDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
-
             binding.description.text = receipt.description
             binding.type.text = receipt.type
+            binding.addedUser.text = receipt.addedUserId
+            binding.date.text = receipt.receiptDate.format(
+                DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm")
+            )
 
         }
     }

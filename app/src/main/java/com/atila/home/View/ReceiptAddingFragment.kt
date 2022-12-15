@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.atila.home.Model.Receipt
 import com.atila.home.R
 import com.atila.home.Util.hideKeyboard
 import com.atila.home.ViewModel.HomePaymentViewModel
 import com.atila.home.databinding.FragmentReceiptAddingBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -31,10 +32,12 @@ class ReceiptAddingFragment : Fragment() {
     private lateinit var viewModel: HomePaymentViewModel
 
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firestore = Firebase.firestore
+        firebaseAuth = Firebase.auth
     }
 
     override fun onCreateView(
@@ -110,7 +113,7 @@ class ReceiptAddingFragment : Fragment() {
             receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
                 .toString(),
-            addedUser = "asd"
+            addedUserId = firebaseAuth.currentUser?.uid.toString()
         )
         viewModel.addReceiptToDatabase(receipt)
 
@@ -124,8 +127,13 @@ class ReceiptAddingFragment : Fragment() {
             homeRef.document(it.documents[0].id).collection("receipts").add(receipt)
                 .addOnSuccessListener { documentReference ->
                     // receipt added successfully , update the fields here
-                    documentReference.update("id", documentReference.id)
-                    documentReference.update("addedUser", uid)
+                    documentReference.update("id", documentReference.id).addOnSuccessListener {
+                        Snackbar.make(
+                            binding.coordinatorLayout,
+                            "Ekleme Başarılı",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(
@@ -135,7 +143,7 @@ class ReceiptAddingFragment : Fragment() {
                     ).show()
                 }
         }
-
+        /*
         // creating the message
         var message = ""
         message += "Açıklama : " + binding.descriptionEditText.text
@@ -153,7 +161,7 @@ class ReceiptAddingFragment : Fragment() {
                 binding.amountContainer.helperText = "Gerekli"
                 binding.descriptionContainer.helperText = "Gerekli"
                 binding.receiptTypeContainer.helperText = "Seçiniz"
-            }.show()
+            }.show()*/
     }
 
     private fun receiptTypesListener() {

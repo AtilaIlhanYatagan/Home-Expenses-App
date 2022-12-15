@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.atila.home.Model.Receipt
+import com.atila.home.Model.User
 import com.atila.home.Service.ReceiptDatabase
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -20,12 +21,13 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
 
     private val dao = ReceiptDatabase(getApplication()).receiptDao()
 
+    // function to get the data from local database
     fun refreshData() {
         viewModelScope.launch(Dispatchers.IO) {
             receiptsLiveData.postValue(dao.getAllReceipts() as ArrayList<Receipt>)
         }
-
     }
+
     fun refreshTotalSpendingData() {
         viewModelScope.launch(Dispatchers.IO) {
             totalSpendingLiveData.postValue(dao.getTotalSpending())
@@ -53,12 +55,13 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
     private val db = Firebase.firestore
     private val uid = Firebase.auth.currentUser?.uid
     private val homeRef = db.collection("homes")
+    private val userRef = db.collection("users")
 
     fun refreshDataFromFirebase() {
         // clear the liveData and the room database
-        receiptsLiveData.postValue(arrayListOf())
+        receiptsLiveData.value = (arrayListOf())
         deleteAllReceiptsFromRoom()
-        // get the current user's home doc
+        // get the current user's home document
         homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // this document refers to the home document that contains the current user
             homeRef.document(it.documents[0].id).collection("receipts").orderBy("receiptDate").get()
@@ -66,14 +69,19 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
                     for (document in documents) {
                         //this document refers to single receipt object
                         val receipt = document.toObject<Receipt>()
-
-                        addReceiptToDatabase(receipt)
-                        receiptsLiveData.value = (receiptsLiveData.value?.plus(receipt)
-                            ?: arrayListOf(receipt)) as ArrayList<Receipt>?
+                        // get the user document with the user id (user document id is the same with addedUserId)
+                        userRef.document(receipt.addedUserId).get()
+                            .addOnSuccessListener { userDocument ->
+                                // change the user id with user name for retrieved document
+                                val addedUser = userDocument.toObject<User>()!!
+                                receipt.addedUserId = addedUser.userName
+                                // add the receipt to local database and livedata
+                                addReceiptToDatabase(receipt)
+                                receiptsLiveData.value = (receiptsLiveData.value?.plus(receipt)
+                                    ?: arrayListOf(receipt)) as ArrayList<Receipt>?
+                            }
                     }
                 }
         }
     }
-
-
 }
