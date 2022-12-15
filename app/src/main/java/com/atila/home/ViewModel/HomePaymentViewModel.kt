@@ -18,6 +18,7 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
 
     val receiptsLiveData = MutableLiveData<ArrayList<Receipt>>()
     val totalSpendingLiveData = MutableLiveData<Int>()
+    val progressBarLiveData = MutableLiveData<Boolean>()
 
     private val dao = ReceiptDatabase(getApplication()).receiptDao()
 
@@ -61,6 +62,7 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
         // clear the liveData and the room database
         receiptsLiveData.value = (arrayListOf())
         deleteAllReceiptsFromRoom()
+        progressBarLiveData.value = true
         // get the current user's home document
         homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // this document refers to the home document that contains the current user
@@ -81,6 +83,7 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
                                     ?: arrayListOf(receipt)) as ArrayList<Receipt>?
                             }
                     }
+                    progressBarLiveData.value = false
                 }
         }
     }

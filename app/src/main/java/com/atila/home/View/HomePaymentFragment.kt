@@ -65,9 +65,20 @@ class HomePaymentFragment : Fragment() {
     }
 
     private fun observeLiveData() {
+
         viewModel.receiptsLiveData.observe(viewLifecycleOwner) { receipts ->
             receipts.let {
                 receiptAdapter.submitList(receipts.toMutableList())
+            }
+        }
+
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) { progress ->
+
+            if (progress == true) {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            if (progress == false) {
+                binding.progressBar.visibility = View.GONE
             }
         }
 
