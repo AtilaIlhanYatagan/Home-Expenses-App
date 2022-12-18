@@ -114,7 +114,9 @@ class ReceiptAddingFragment : Fragment() {
             receiptDate = OffsetDateTime.now(ZoneId.systemDefault())
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy / HH:mm"))
                 .toString(),
-            addedUserId = firebaseAuth.currentUser?.uid.toString()
+            addedUserId = firebaseAuth.currentUser?.uid.toString(),
+            approvalState = false,
+            approvedUserIdList = arrayListOf(firebaseAuth.currentUser!!.uid),
         )
         viewModel.addReceiptToDatabase(receipt)
 

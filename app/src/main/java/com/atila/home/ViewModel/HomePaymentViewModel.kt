@@ -20,6 +20,11 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
     val totalSpendingLiveData = MutableLiveData<Int>()
     val progressBarLiveData = MutableLiveData<Boolean>()
 
+    private val db = Firebase.firestore
+    private val uid = Firebase.auth.currentUser?.uid
+    private val homeRef = db.collection("homes")
+    private val userRef = db.collection("users")
+
     private val dao = ReceiptDatabase(getApplication()).receiptDao()
 
     // function to get the data from local database
@@ -52,11 +57,6 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
             dao.deleteAllReceipts()
         }
     }
-
-    private val db = Firebase.firestore
-    private val uid = Firebase.auth.currentUser?.uid
-    private val homeRef = db.collection("homes")
-    private val userRef = db.collection("users")
 
     fun refreshDataFromFirebase() {
         // clear the liveData and the room database

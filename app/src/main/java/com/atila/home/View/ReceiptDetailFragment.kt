@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.atila.home.Util.setSafeOnClickListener
 import com.atila.home.ViewModel.ReceiptDetailViewModel
 import com.atila.home.databinding.FragmentReceiptDetailBinding
 import org.threeten.bp.format.DateTimeFormatter
@@ -43,6 +44,10 @@ class ReceiptDetailFragment : Fragment() {
         //getting the arguments
         arguments?.let {
             receiptIdFromListFragment = ReceiptDetailFragmentArgs.fromBundle(it).receiptId
+        }
+
+        binding.approveButton.setSafeOnClickListener {
+            viewModel.approveButtonFirebase(receiptIdFromListFragment)
         }
 
         viewModel = ViewModelProvider(this)[ReceiptDetailViewModel::class.java]
