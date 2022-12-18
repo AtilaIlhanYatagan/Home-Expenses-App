@@ -47,7 +47,7 @@ class ReceiptDetailFragment : Fragment() {
         }
 
         binding.approveButton.setSafeOnClickListener {
-            viewModel.approveButtonFirebase(receiptIdFromListFragment)
+            viewModel.approveButton(receiptIdFromListFragment)
         }
 
         viewModel = ViewModelProvider(this)[ReceiptDetailViewModel::class.java]
