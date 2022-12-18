@@ -1,7 +1,7 @@
 package com.atila.home.ViewModel
 
 import android.app.Application
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.atila.home.Model.Receipt
@@ -14,10 +14,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomePaymentViewModel(application: Application) : BaseViewModel(application) {
+class ApprovalViewModel(application: Application) : BaseViewModel(application) {
 
     val receiptsLiveData = MutableLiveData<ArrayList<Receipt>>()
-    val totalSpendingLiveData = MutableLiveData<Int>()
     val progressBarLiveData = MutableLiveData<Boolean>()
 
     private val db = Firebase.firestore
@@ -31,12 +30,6 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
     fun refreshData() {
         viewModelScope.launch(Dispatchers.IO) {
             receiptsLiveData.postValue(dao.getAllReceipts() as ArrayList<Receipt>)
-        }
-    }
-
-    fun refreshTotalSpendingData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            totalSpendingLiveData.postValue(dao.getTotalSpending())
         }
     }
 
@@ -67,9 +60,10 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
         homeRef.whereArrayContains("userIdList", uid!!).get().addOnSuccessListener {
             // this document refers to the home document that contains the current user
             val receiptsRef = homeRef.document(it.documents[0].id).collection("receipts")
-            receiptsRef.whereEqualTo("approvalState", true).get()
+            receiptsRef.whereEqualTo("approvalState", false).get() //order by kaldırıdm
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
+                        println(document.id)
                         //this document refers to single receipt object
                         val receipt = document.toObject<Receipt>()
                         // get the user document with the user id (user document id is the same with addedUserId)
@@ -86,6 +80,8 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
                     }
                     progressBarLiveData.value = false
                 }
+        }.addOnFailureListener {
+            println(it.localizedMessage)
         }
     }
 }
