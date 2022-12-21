@@ -17,6 +17,7 @@
     <string name="receipt_adding_button">receipt adding button</string>
     <string name="sign_out_string">Çıkış Yap</string>
     <string name="home_details_string">Ev Ayrıntıları</string>
+    <string name="title_activity_main2">MainActivity2</string>
 
 
 </resources>

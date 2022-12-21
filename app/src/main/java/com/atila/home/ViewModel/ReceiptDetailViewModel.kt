@@ -2,6 +2,7 @@ package com.atila.home.ViewModel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.atila.home.Model.Receipt
 import com.atila.home.Service.ReceiptDatabase

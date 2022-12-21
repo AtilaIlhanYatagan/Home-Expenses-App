@@ -63,7 +63,6 @@ class ApprovalViewModel(application: Application) : BaseViewModel(application) {
             receiptsRef.whereEqualTo("approvalState", false).get() //order by kaldırıdm
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        println(document.id)
                         //this document refers to single receipt object
                         val receipt = document.toObject<Receipt>()
                         // get the user document with the user id (user document id is the same with addedUserId)
