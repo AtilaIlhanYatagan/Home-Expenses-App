@@ -17,7 +17,7 @@ class HomeDetailViewModel : ViewModel() {
     private val userRef = db.collection("users")
 
     val homeDocLiveData = MutableLiveData<DocumentSnapshot>()
-    var userListLiveData = MutableLiveData<List<User>>()
+    var userListLiveData = MutableLiveData<ArrayList<User>>()
 
 
     fun setHomeDocLiveData() {
@@ -34,7 +34,7 @@ class HomeDetailViewModel : ViewModel() {
             for (userId in userIdList) {
                 userRef.document(userId as String).get().addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject<User>()
-                    userListLiveData.value = userListLiveData.value?.plus(user!!) ?: listOf()
+                    userListLiveData.value = (userListLiveData.value?.plus(user) ?: arrayListOf(user)) as ArrayList<User>?
                 }
             }
         }
