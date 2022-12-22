@@ -46,15 +46,16 @@ class HomePaymentFragment : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        observeLiveData()
-    }
-
     //clear the liveData before navigating to fix the loading animation glitch
     override fun onPause() {
         super.onPause()
         viewModel.clearReceiptsLivedata()
+    }
+
+
+    override fun onResume() {
+        viewModel.refreshDataFromFirebase()
+        super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +66,7 @@ class HomePaymentFragment : Fragment() {
 
         binding.recyclerViewHome.adapter = receiptAdapter
 
-        viewModel.refreshDataFromFirebase()
+        observeLiveData()
         viewModel.refreshTotalSpendingData()
 
     }
