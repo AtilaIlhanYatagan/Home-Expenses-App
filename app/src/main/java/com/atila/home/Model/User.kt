@@ -3,6 +3,7 @@ package com.atila.home.Model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
 import org.threeten.bp.OffsetDateTime
 import java.util.*
 
@@ -17,5 +18,5 @@ data class User(
     val userName: String = "null",
 
     @ColumnInfo(name = "joinDate")
-    val joinDate: OffsetDateTime? = null,
+    val dateExample: Timestamp = Timestamp.now()
 )

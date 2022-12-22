@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -25,6 +26,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.atila.home.Model.User
 import com.atila.home.ViewModel.HomeDetailViewModel
 import com.atila.home.databinding.FragmentHomeDetailBinding
+import org.threeten.bp.format.DateTimeFormatter
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 class HomeDetailFragment : Fragment() {
@@ -95,16 +99,18 @@ class HomeDetailFragment : Fragment() {
         LazyColumn(modifier = androidx.compose.ui.Modifier.padding(vertical = 4.dp)) {
 
             items(items = userList) { user ->
-                ListItem(name = user)
+                ListItem(user = user)
             }
         }
     }
 
     @Composable
-    fun ListItem(name: User) {
+    fun ListItem(user: User) {
         Surface(
             color = MaterialTheme.colors.primary,
-            modifier = androidx.compose.ui.Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+            modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp, horizontal = 50.dp),
+            shape = RoundedCornerShape(8.dp),
+            elevation = (5.dp)
         ) {
             Column(
                 modifier = androidx.compose.ui.Modifier
@@ -115,8 +121,8 @@ class HomeDetailFragment : Fragment() {
                     modifier = androidx.compose.ui.Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = name.userName)
-                    Text(text = "asd")
+                    Text(text = user.userName)
+                    Text(text = viewModel.timeStampToFormattedString(user.dateExample))
                 }
             }
         }

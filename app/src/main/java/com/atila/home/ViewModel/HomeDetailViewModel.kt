@@ -3,11 +3,14 @@ package com.atila.home.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.atila.home.Model.User
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 class HomeDetailViewModel : ViewModel() {
 
@@ -34,10 +37,17 @@ class HomeDetailViewModel : ViewModel() {
             for (userId in userIdList) {
                 userRef.document(userId as String).get().addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject<User>()
-                    userListLiveData.value = (userListLiveData.value?.plus(user) ?: arrayListOf(user)) as ArrayList<User>?
+                    userListLiveData.value = (userListLiveData.value?.plus(user)
+                        ?: arrayListOf(user)) as ArrayList<User>?
                 }
             }
         }
+    }
+
+    fun timeStampToFormattedString(timestamp: Timestamp): String {
+        val date = timestamp.toDate()
+        val formatter: DateFormat = SimpleDateFormat("dd.MM.yyyy / HH:mm")
+        return formatter.format(date)
     }
 
 }
