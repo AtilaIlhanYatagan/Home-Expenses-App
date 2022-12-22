@@ -51,6 +51,12 @@ class HomePaymentFragment : Fragment() {
         observeLiveData()
     }
 
+    //clear the liveData before navigating to fix the loading animation glitch
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearReceiptsLivedata()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerViewHome.layoutManager = LinearLayoutManager(context)

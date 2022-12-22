@@ -51,6 +51,10 @@ class ApprovalViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    fun clearReceiptsLivedata(){
+        receiptsLiveData.value = (arrayListOf())
+    }
+
     fun refreshDataFromFirebase() {
         // clear the liveData and the room database
         receiptsLiveData.value = (arrayListOf())

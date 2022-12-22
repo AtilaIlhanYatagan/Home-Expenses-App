@@ -58,9 +58,13 @@ class HomePaymentViewModel(application: Application) : BaseViewModel(application
         }
     }
 
-    fun refreshDataFromFirebase() {
-        // clear the liveData and the room database
+    fun clearReceiptsLivedata(){
         receiptsLiveData.value = (arrayListOf())
+    }
+
+    fun refreshDataFromFirebase() {
+        //clear the room database
+        clearReceiptsLivedata()
         deleteAllReceiptsFromRoom()
         progressBarLiveData.value = true
         // get the current user's home document
